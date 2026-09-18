@@ -1,8 +1,8 @@
 export interface Identification {
   fullName: string
   identificationNumber: string
+  validity: string
   companyName: string
-  photo?: Blob
-  companyLogo?: Blob
-  updatedAt: string
+  photo: string
+  companyLogo: string
 }

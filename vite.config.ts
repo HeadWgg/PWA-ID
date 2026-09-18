@@ -7,11 +7,10 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'],
       manifest: {
         name: 'Identificação Digital',
         short_name: 'ID Digital',
-        description: 'Sua identificação digital salva neste dispositivo.',
+        description: 'Identificação digital disponível mesmo sem internet.',
         lang: 'pt-BR',
         start_url: '/',
         scope: '/',
@@ -24,8 +23,9 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{html,js,css,svg,png,webmanifest}'],
+        globPatterns: ['**/*.{html,js,css,svg,png,webp,webmanifest}'],
         navigateFallback: '/index.html',
+        navigateFallbackAllowlist: [/^\/$/],
         cleanupOutdatedCaches: true,
       },
     }),

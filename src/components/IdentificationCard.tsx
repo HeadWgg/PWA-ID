@@ -1,39 +1,18 @@
-import { useEffect, useState } from 'react'
 import type { Identification } from '../types/identification'
-import { InstitutionIcon, PersonIcon } from './ImageUpload'
-
-function useImageUrl(blob?: Blob) {
-  const [url, setUrl] = useState<string>()
-
-  useEffect(() => {
-    if (!blob) {
-      setUrl(undefined)
-      return
-    }
-    const objectUrl = URL.createObjectURL(blob)
-    setUrl(objectUrl)
-    return () => URL.revokeObjectURL(objectUrl)
-  }, [blob])
-
-  return url
-}
 
 export function IdentificationCard({ identification }: { identification: Identification }) {
-  const photoUrl = useImageUrl(identification.photo)
-  const logoUrl = useImageUrl(identification.companyLogo)
-
   return (
     <article className="identification-card" aria-label="Carteira de identificação digital">
       <header className="card-header">
         <div className="brand-logo">
-          {logoUrl ? <img src={logoUrl} alt={`Logo de ${identification.companyName}`} /> : <InstitutionIcon />}
+          <img src={identification.companyLogo} alt={`Logo de ${identification.companyName}`} />
         </div>
         <p className="card-title">Identificação digital</p>
       </header>
 
       <div className="card-person">
         <div className="card-photo">
-          {photoUrl ? <img src={photoUrl} alt={`Foto de ${identification.fullName}`} /> : <PersonIcon />}
+          <img src={identification.photo} alt={`Foto de ${identification.fullName}`} />
         </div>
         <h1>{identification.fullName}</h1>
       </div>
@@ -42,6 +21,10 @@ export function IdentificationCard({ identification }: { identification: Identif
         <div className="card-number">
           <span>Identificação</span>
           <strong>{identification.identificationNumber}</strong>
+        </div>
+        <div className="card-validity">
+          <span>Validade</span>
+          <strong>{identification.validity}</strong>
         </div>
         <div className="card-company">
           <span>Empresa / instituição</span>
